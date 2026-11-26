@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+{% block content %}
+
+<!-- HOME -->
+<section id="home" class="hero">
+  <div class="wrap hero-inner">
+    <div>
+      <h1>Hello, I’m {{ profile.short_name }}<span>Aspiring Software Engineer · AI/ML</span></h1>
+      <p>{{ profile.title }}. Based in {{ profile.location }}.</p>
+      <a class="btn light" href="#projects">View My Work</a>
+      <a class="btn outline" href="#contact">Get In Touch</a>
+    </div>
+    <div class="avatar">
+      {% if profile.photo %}<img src="{{ url_for('static', path=profile.photo) }}" alt="{{ profile.name }}">
+      {% else %}CS{% endif %}
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="wrap">
+  <h2>About Me</h2>
+  <p class="sub">Get to know me better</p>
+  <div class="two-col">
+    <div>
+      <h3>Who I Am</h3>
+      <p>I’m {{ profile.name }}, a B.Tech Computer Science (AI &amp; ML) graduate from Hyderabad. I enjoy turning ideas into working software, and I learn best by building projects end to end.</p>
+      <p>My hands-on experience covers machine learning, deep learning, NLP and backend development. I’m comfortable building solutions in Python and Java, exposing them through Django and FastAPI, and packaging them with Docker.</p>
+      <p>I’m currently deepening my full-stack skills (JavaScript, HTML/CSS) and cloud-native tooling such as Kubernetes, CI/CD and AWS.</p>
+
+      <h3>What I’ve Worked On</h3>
+      <ul class="about-list">
+        <li><b>Deep learning for medical imaging:</b> fine-tuned a pre-trained VGG19 network to spot lesions in spinal CT scans, even with a limited dataset.</li>
+        <li><b>NLP and ranking:</b> built a CV screening system that uses SpaCy and TF-IDF to rank candidates against a job description.</li>
+        <li><b>Backend and algorithms:</b> built a Java banking system with REST endpoints, MySQL, and fraud detection using Graph DFS, a Priority Queue and a Sliding Window.</li>
+        <li><b>Web with FastAPI:</b> building pages and APIs with Jinja templates, Pydantic and MySQL.</li>
+      </ul>
+
+      <h3>What I’m Looking For</h3>
+      <p>A graduate software engineering or AI/ML engineering role where I can keep learning, work on real products and grow with a team. I’m {{ profile.availability | lower }}.</p>
+
+      <h3>Education</h3>
+      {% for e in education %}
+      <p><strong>{{ e.school }}</strong><br>
+        {{ e.degree }} · {{ e.period }}
+        {% if e.extra %}<br><span class="muted">{{ e.extra }}</span>{% endif %}</p>
+      {% endfor %}
+    </div>
+
+    <div class="stats">
+      <div><b>2026</b><span>B.Tech Graduate</span></div>
+      <div><b>3</b><span>Major Projects</span></div>
+      <div><b>6</b><span>GitHub Repos</span></div>
+      <div class="facts">
+        <p><i class="fa-solid fa-location-dot"></i> {{ profile.location }}</p>
+        <p><i class="fa-solid fa-briefcase"></i> {{ profile.availability }}</p>
+        <p><i class="fa-solid fa-graduation-cap"></i> Guru Nanak Institute of Technology</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills" class="alt">
+  <div class="wrap">
+    <h2>Technical Skills</h2>
+    <p class="sub">Technologies I work with</p>
+    <div class="cards">
+      {% for group, items in skill_groups %}
+      <div class="card">
+        <h3>{{ group }}</h3>
+        <div class="chips">{% for s in items %}<span>{{ s }}</span>{% endfor %}</div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" class="wrap">
+  <h2>Featured Projects</h2>
+  <p class="sub">Some of my recent work</p>
+  <div class="cards">
+    {% for p in projects %}
+    <article class="card project">
+      <h3>{{ p.title }}</h3>
+      <div class="chips">{% for t in p.tech %}<span>{{ t }}</span>{% endfor %}</div>
+      <div class="icon-links">
+        {% if p.url %}
+        <a href="{{ p.url }}" title="View code on GitHub" aria-label="GitHub link for {{ p.title }}"><i class="fa-brands fa-github"></i></a>
+        {% else %}
+        <span class="disabled" title="Code not published yet"><i class="fa-brands fa-github"></i></span>
+        {% endif %}
+      </div>
+    </article>
+    {% endfor %}
+  </div>
+
+  <h3 class="learning">More on GitHub</h3>
+  <ul class="plain">
+    {% for r in more_repos %}
+    <li><a href="{{ r.url }}"><i class="fa-brands fa-github"></i> {{ r.title }}</a></li>
+    {% endfor %}
+  </ul>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="alt">
+  <div class="wrap">
+    <h2>Get In Touch</h2>
+    <p class="sub">Let’s work together on your next project</p>
+    <div class="two-col">
+      <div>
+        <h3>Let’s Connect</h3>
+        <p>I’m seeking a graduate software or AI/ML engineering role and I’m always happy to chat about opportunities.</p>
+        <ul class="contact-list">
+          <li><i class="fa-solid fa-envelope"></i> <a href="mailto:{{ profile.email }}">{{ profile.email }}</a></li>
+          <li><i class="fa-solid fa-phone"></i> <a href="tel:{{ profile.phone_link }}">{{ profile.phone }}</a></li>
+          <li><i class="fa-brands fa-github"></i> <a href="{{ profile.github }}">github.com/chandrashekar933</a></li>
+          <li><i class="fa-solid fa-location-dot"></i> {{ profile.location }}</li>
+        </ul>
+      </div>
+      <div class="contact-cta">
+        <a class="btn solid" href="mailto:{{ profile.email }}"><i class="fa-solid fa-paper-plane"></i> Send Message</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

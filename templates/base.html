@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ profile.name }} - Aspiring Software Engineer</title>
+  <meta name="description" content="{{ profile.title }}">
+  <!-- Font Awesome icons (CSS only, no JavaScript) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="{{ url_for('static', path='style.css') }}">
+</head>
+<body>
+  <header class="nav">
+    <div class="nav-inner">
+      <a class="brand" href="#home">{{ profile.short_name }}</a>
+      <nav>
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  {% block content %}{% endblock %}
+
+  <footer>
+    <p class="footer-icons">
+      <a href="{{ profile.github }}" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+      <a href="mailto:{{ profile.email }}" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
+      <a href="tel:{{ profile.phone_link }}" aria-label="Phone"><i class="fa-solid fa-phone"></i></a>
+    </p>
+    <p>© {{ profile.name }}. All rights reserved.</p>
+  </footer>
+</body>
+</html>
